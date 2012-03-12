@@ -124,7 +124,7 @@ function version_innstilling() {
 
 // Author
 function author_innstilling() {
-  echo "<p>Ivan Le Hjelmeland</p>";
+  echo "<p>Ivan Le Hjelmeland, Pernille Hellesvik, Kristin Annabel Folland</p>";
 }
 
 // Overskrift farge
@@ -270,11 +270,11 @@ function fourth_section() {
 }
 function my_custom_submenu_page_callback() {
 	echo '<h3>About My CinemaTuna Plugin</h3>
-	<p>	<strong>Plugin Name:</strong> CinemaTuna </br>
+	<p>	<strong>Plugin Name:</strong> ApartmentViewer </br>
 	<strong>Plugin URI:</strong> http://www.tunafishmedia.com/cinematuna/ </br>
-	<strong>Description:</strong> A html video plugin that is easy to use. Devoloped by a student at the university of Gj&oslash;vik </br>
+	<strong>Description:</strong> A plugin to sell apartments. Devoloped by students at the university of Gj&oslash;vik </br>
 	<strong>Version:</strong> 1.0 </br>
-	<strong>Author:</strong> Ivan Le Hjelmeland </br>
+	<strong>Author:</strong> Ivan Le Hjelmeland, Mette Pernille Hellesvik, Kristin Annabel Folland </br>
 	<strong>Author URI:</strong> http://www.tunafishmedia.com/</p> 
 	
 	<p>Copyright 2012 Ivan Le Hjelmeland (email : ivan.hjelmeland@gmail.com) </br>  
