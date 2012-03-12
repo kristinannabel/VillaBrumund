@@ -89,6 +89,4 @@ class apartmentviewer
     }
 }
 endif;
-
-require_once dirname( __FILE__ ) . '/opplastning.php';
 ?>
