@@ -15,8 +15,8 @@ function build_options_page() {
   <div id="myBackground">
   <div id="theme-options-wrap">
     <div class="icon32" id="icon-upload"> <br /> </div>
-    <h2>My CinemaTuna Plugin</h2>
-    <p>Change the settings off the videoplugin here.</p>
+    <h2>ApartmentViewer</h2>
+    <p>Change the settings off the plugin here.</p>
     <form method="post" action="options.php" enctype="multipart/form-data">
 		<?php settings_fields('plugin_options'); ?>
 		<?php do_settings_sections(__FILE__); ?>
@@ -124,7 +124,7 @@ function version_innstilling() {
 
 // Author
 function author_innstilling() {
-  echo "<p>Ivan Le Hjelmeland, Pernille Hellesvik, Kristin Annabel Folland</p>";
+  echo "<p>Ivan Le Hjelmeland, Mette Pernille Hellesvik, Kristin Annabel Folland</p>";
 }
 
 // Overskrift farge
@@ -269,15 +269,14 @@ function fourth_section() {
     _e( 'The general section description goes here.' );
 }
 function my_custom_submenu_page_callback() {
-	echo '<h3>About My CinemaTuna Plugin</h3>
+	echo '<h3>About ApartmentViewer Plugin</h3>
 	<p>	<strong>Plugin Name:</strong> ApartmentViewer </br>
-	<strong>Plugin URI:</strong> http://www.tunafishmedia.com/cinematuna/ </br>
 	<strong>Description:</strong> A plugin to sell apartments. Devoloped by students at the university of Gj&oslash;vik </br>
 	<strong>Version:</strong> 1.0 </br>
 	<strong>Author:</strong> Ivan Le Hjelmeland, Mette Pernille Hellesvik, Kristin Annabel Folland </br>
 	<strong>Author URI:</strong> http://www.tunafishmedia.com/</p> 
 	
-	<p>Copyright 2012 Ivan Le Hjelmeland (email : ivan.hjelmeland@gmail.com) </br>  
+	<p>Copyright 2012 Ivan Le Hjelmeland, Mette Pernille Hellesvik, Kristin Annabel Folland (email : ivan.hjelmeland@gmail.com, pernillehellesvik@gmail.com, kristinannabel.folland@gmail.com) </br>  
 	This program is free software; you can redistribute it and/or modify it under  </br>
 	the terms of the GNU General Public License, version 2, as published by the </br>
 	Free Software Foundation.  </p>
