@@ -1,10 +1,10 @@
 <?php
 	/*
-	Plugin Name: CinemaTuna
+	Plugin Name: ApartmentViewer
 	Plugin URI: http://www.tunafishmedia.com/cinematuna/
-	Description: Used by millions! A video-plugin where you easily can upload videos to your wordpress-website. Supports HTML5, W I N!
+	Description: Used by millions! 
 	Version: 1.0
-	Author: Ivan Le Hjelmeland
+	Author: Ivan Le Hjelmeland, Mette Pernille Hellesvik, Kristin Annabel Folland
 	Author URI: http://www.tunafishmedia.com/
 	
 	Copyright 2012 Ivan Lé Hjelmeland (email : ivan.hjelmeland@gmail.com)  
@@ -23,35 +23,20 @@
 	*/
 ?>
 <?php
-	register_activation_hook(__FILE__, 'cinematuna_install'); 
+	register_activation_hook(__FILE__, 'apartmentviewer_install'); 
 	
-	function cinematuna_install() { 
+	function apartmentviewer_install() { 
 		global $wp_version; 
 			if(version_compare($wp_version, "2.9", "<")) { 
 				deactivate_plugins(basename(__FILE__)); 
 				wp_die("This plugin requires WordPress version 2.9 or higher."); 
 			} 
 	} 
-	register_deactivation_hook(__FILE__, 'cinematuna_uninstall'); 
-	function cinematuna_uninstall() { 
+	register_deactivation_hook(__FILE__, 'apartmentviewer_uninstall'); 
+	function apartmentviewer_uninstall() { 
 	deactivate_plugins(basename(__FILE__)); 
 } 
 
 if ( is_admin() )
 	require_once dirname( __FILE__ ) . '/admin.php';
-	
-function plugin_media_button($context) { 
-$plugin_media_button = ' %s' . '<a href="media-upload.php?type=wp_myplugin&amp;TB_iframe=true" class="thickbox"><img src="http://tunafishmedia.com/prosjekt/webutv/wp-admin/images/media-button-other.gif?ver=20100531" alt="Legg til media" onclick="return false;"></a>'; 
-return sprintf($context, $plugin_media_button); } 
-add_filter('media_buttons_context', 'plugin_media_button');
-
-function html5_video($atts, $content = null) {
-	extract(shortcode_atts(array(
-		"src" => '',
-		"width" => '',
-		"height" => ''
-	), $atts));
-	return '<video src="'.$src.'" width="'.$width.'" height="'.$height.'" controls autobuffer>';
-}
-add_shortcode('cinematuna', 'html5_video');
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 function create_theme_options_page() {
-  add_menu_page('CinemaTuna Settings', 'CinemaTuna', 'administrator', __FILE__, 'build_options_page', plugins_url('/images/icon.png', __FILE__));
+  add_menu_page('ApartmentViewer Settings', 'ApartmentViewer', 'administrator', __FILE__, 'build_options_page', plugins_url('/images/icon.png', __FILE__));
   add_submenu_page(__FILE__, 'general', 'General', 'administrator', __FILE__, 'general_setting', 'general_funksjon');
   add_submenu_page( __FILE__, 'About', 'About', 'administrator', 'my-custom-submenu-page', 'my_custom_submenu_page_callback' ); 
 }
@@ -159,8 +159,7 @@ function meny_font_innstilling() {
 			echo "<option value='$item' $selected>$item</option>";
 		}
 	echo "</select>";
-}
-	
+}	
 	
 // Innholdstekst farge
 function innhold_farge_innstilling() {
@@ -179,7 +178,6 @@ function innhold_font_innstilling() {
 	echo "</select>";
 }
 
-
 // Footer_Font for E-post
 function footer_font2_innstilling() {
 	$items = array('', 'Gill Sans MT', 'Lucida Sans Unicode', 'verdana', 'geneva', 'sans-serif');
@@ -190,7 +188,6 @@ function footer_font2_innstilling() {
 		}
 	echo "</select>";
 }
-
 
 // Footer E-post Farge
 function footer_farge2_innstilling() {
@@ -263,8 +260,6 @@ function bakgrunnsfarge_innstilling() {
   echo "<input name='plugin_options[bakgrunns_farge]' type='text' value='{$options['bakgrunns_farge']}' />";
 }
 
-
-
 // Logo
 function logo_innstilling() {
 	echo '<input type="file" name="logo" />';
@@ -273,7 +268,6 @@ function logo_innstilling() {
 function fourth_section() {
     _e( 'The general section description goes here.' );
 }
-
 function my_custom_submenu_page_callback() {
 	echo '<h3>About My CinemaTuna Plugin</h3>
 	<p>	<strong>Plugin Name:</strong> CinemaTuna </br>
@@ -298,8 +292,6 @@ function my_custom_submenu_page_callback() {
 	Franklin St, Fifth Floor, Boston, MA 02110-1301 USA  </p>';
 
 }
-
-
 function section_cb() {}
 
 function validate_setting($plugin_options){
