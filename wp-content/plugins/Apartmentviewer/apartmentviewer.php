@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	/*
 	Plugin Name: ApartmentViewer
 	Plugin URI: http://www.tunafishmedia.com/cinematuna/
@@ -7,7 +7,7 @@
 	Author: Ivan Le Hjelmeland, Mette Pernille Hellesvik, Kristin Annabel Folland
 	Author URI: http://www.tunafishmedia.com/
 	
-	Copyright 2012 Ivan L� Hjelmeland (email : ivan.hjelmeland@gmail.com)  
+	Copyright 2012 Ivan Lé Hjelmeland (email : ivan.hjelmeland@gmail.com)  
 	This program is free software; you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License, version 2, as published by the
 	Free Software Foundation.  
