@@ -82,6 +82,7 @@ function register_and_build_fields() {
   add_settings_section('second_section', 'Design', 'section_cb', __FILE__);
   add_settings_section('third_section', 'Upload', 'section_cb', __FILE__);
   add_settings_section('fourth_section', 'About', 'section_cb', __FILE__);
+  add_settings_section('fifth_section', 'Megler', 'section_cb', __FILE__);
   add_settings_field('footer_epost', 'E-post', 'footer_epost_innstilling', __FILE__, 'main_section');
   add_settings_field('footer_font2', 'E-post Font:', 'footer_font2_innstilling', __FILE__, 'main_section');
   add_settings_field('footer_farge2', 'E-post Farge:', 'footer_farge2_innstilling', __FILE__, 'main_section');
