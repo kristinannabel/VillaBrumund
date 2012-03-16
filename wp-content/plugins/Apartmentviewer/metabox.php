@@ -20,8 +20,10 @@ function myplugin_inner_custom_box( $post ) {
   wp_nonce_field( plugin_basename( __FILE__ ), 'myplugin_noncename' );
 
   // The actual fields for data entry
-  echo '<input type="text" id="areal" name="areal" value="Areal" size="8" /><input type="text" id="arialvalue" name="arialvalue" value="" size="20" />';
-
+	echo '<input type="text" id="areal" name="areal" value="Areal" size="8" /><input type="text" id="arealvalue" name="arealvalue" value="" size="16" />';
+	echo '<input type="text" id="pris" name="pris" value="Pris" size="8" /><input type="text" id="prisvalue" name="prisvalue" value="" size="16" />';
+	echo '<input type="text" id="soverom" name="soverom" value="Soverom" size="8" /><input type="text" id="soveromvalue" name="soveromvalue" value="" size="16" />';
+	echo '<input type="text" id="bad" name="bad" value="Bad" size="8" /><input type="text" id="badvalue" name="badvalue" value="" size="16" />';
 }
 function myplugin_inner_custom_box2( $post ) {
 
@@ -60,7 +62,7 @@ function myplugin_save_postdata( $post_id ) {
 
   // OK, we're authenticated: we need to find and save the data
 
-  $mydata = $_POST['myplugin_new_field'];
+  $mydata = $_POST['arealvalue'];
 
   // Do something with $mydata 
   // probably using add_post_meta(), update_post_meta(), or 
