@@ -39,4 +39,5 @@
 
 if ( is_admin() )
 	require_once dirname( __FILE__ ) . '/admin.php';
+	require_once dirname( __FILE__ ) . '/metabox.php';
 ?>
