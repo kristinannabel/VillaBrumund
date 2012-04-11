@@ -1,5 +1,4 @@
-﻿<?php 
-
+﻿<?php
 add_action( 'add_meta_boxes', 'myplugin_add_custom_box' );
 // backwards compatible (before WP 3.0)
 // add_action( 'admin_init', 'myplugin_add_custom_box', 1 );
@@ -25,11 +24,10 @@ function myplugin_inner_custom_box( $post ) {
 
   // The actual fields for data entry
 	echo '<input type="text" id="areal" name="areal" value="Areal" size="8" /><input type="text" id="arealvalue" name="arealvalue" value="'.get_post_meta($post->ID, 'arealvalue',true).'" size="16" />';
-	echo '<input type="text" id="pris" name="pris" value="Pris" size="8" /><input type="text" id="prisvalue" name="prisvalue" value="" size="16" />';
-	echo '<input type="text" id="soverom" name="soverom" value="Soverom" size="8" /><input type="text" id="soveromvalue" name="soveromvalue" value="" size="16" />';
-	echo '<input type="text" id="bad" name="bad" value="Bad" size="8" /><input type="text" id="badvalue" name="badvalue" value="" size="16" />';
+	echo '<input type="text" id="pris" name="pris" value="Pris" size="8" /><input type="text" id="prisvalue" name="prisvalue" value="'.get_post_meta($post->ID, 'prisvalue',true).'" size="16" />';
+	echo '<input type="text" id="soverom" name="soverom" value="Soverom" size="8" /><input type="text" id="soveromvalue" name="soveromvalue" value="'.get_post_meta($post->ID, 'soveromvalue',true).'" size="16" />';
+	echo '<input type="text" id="bad" name="bad" value="Bad" size="8" /><input type="text" id="badvalue" name="badvalue" value="'.get_post_meta($post->ID, 'badvalue',true).'" size="16" />';
 }
-
 
 function myplugin_inner_custom_box2( $post ) {
 
@@ -48,36 +46,21 @@ function myplugin_save_postdata( $post_id ) {
   if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
       return;
 
-	  
-
-  // verify this came from the our screen and with proper authorization,
-  // because save_post can be triggered at other times
-
- 
- 
-  // Check permissions
-/*  if ( 'page' == $_POST['post_type'] ) 
-  {
-    if ( !current_user_can( 'edit_page', $post_id ) )
-        return;
-  }
-  else
-  {
-    if ( !current_user_can( 'edit_post', $post_id ) )
-        return;
-  }*/
-
-  // OK, we're authenticated: we need to find and save the data
-
   if(isset($_POST['arealvalue'])){
-	$mydata = $_POST['arealvalue'];
-	print_r(update_post_meta($post_id, 'arealvalue', $mydata));
+	$areal = $_POST['arealvalue'];
+	update_post_meta($post_id, 'arealvalue', $areal);
   }
-  
-  
-  
-  // Do something with $mydata 
-  // probably using add_post_meta(), update_post_meta(), or 
-  // a custom table (see Further Reading section below)
+  if(isset($_POST['prisvalue'])){
+	$pris = $_POST['prisvalue'];
+	update_post_meta($post_id, 'prisvalue', $pris);
+  }
+  if(isset($_POST['soveromvalue'])){
+	$soverom = $_POST['soveromvalue'];
+	update_post_meta($post_id, 'soveromvalue', $soverom);
+  }
+  if(isset($_POST['badvalue'])){
+	$bad = $_POST['badvalue'];
+	update_post_meta($post_id, 'badvalue', $bad);
+  }
 }
 ?>
