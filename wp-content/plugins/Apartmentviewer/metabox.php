@@ -50,7 +50,8 @@ function myplugin_inner_custom_box3( $post ) {//meglerinformasjon
   echo '<label for="tlf">Telefonnummer:&nbsp;</label><input type="text" id="meglertlfvalue" name="meglertlfvalue" value="'.get_post_meta($post->ID, 'meglertlfvalue',true).'" size="16" /><br />';
   echo '<label for="epost">Epost-adresse: </label><input type="text" id="meglerepostvalue" name="meglerepostvalue" value="'.get_post_meta($post->ID, 'meglerepostvalue',true).'" size="16" /><br />';
   echo '<label for="fax">Fax: </label><input type="text" id="meglerfaxvalue" name="meglerfaxvalue" value="'.get_post_meta($post->ID, 'meglerfaxvalue',true).'" size="16" /><br />';
-  echo '<label for="bilde">Bilde av megler: </label><input type="file" id="meglerbildevalue" name="meglerbildevalue" value="'.get_post_meta($post->ID, 'meglerbildevalue',true).'" size="16" />';
+  echo '<label for="meglerbildevalue">Last opp bilde av megler: </label><input id="meglerbildevalue" type="text" size="36" name="meglerbildevalue" value="'.get_post_meta($post->ID, 'meglerbildevalue',true).'" /><input id="upload_image_button_megler" type="button" value="Last opp bilde" />';
+  echo '<br />Skriv inn en URL eller last opp et bilde';
 }
 function myplugin_inner_custom_box4( $post ) {//selgerinformasjon
 
@@ -60,26 +61,23 @@ function myplugin_inner_custom_box4( $post ) {//selgerinformasjon
   echo '<label for="tlf">Telefonnummer:&nbsp;</label><input type="text" id="selgertlfvalue" name="selgertlfvalue" value="'.get_post_meta($post->ID, 'selgertlfvalue',true).'" size="16" /><br />';
   echo '<label for="epost">Epost-adresse: </label><input type="text" id="selgerepostvalue" name="selgerepostvalue" value="'.get_post_meta($post->ID, 'selgerepostvalue',true).'" size="16" /><br />';
   echo '<label for="fax">Fax: </label><input type="text" id="selgerfaxvalue" name="selgerfaxvalue" value="'.get_post_meta($post->ID, 'selgerfaxvalue',true).'" size="16" /><br />';
-  echo '<label for="bilde">Bilde av megler: </label><input type="file" id="selgerbildevalue" name="selgerbildevalue" value="'.get_post_meta($post->ID, 'selgerbildevalue',true).'" size="16" />';
-  echo '<label for="upload_image">Last opp bilde av megler: </label><input id="upload_image" type="text" size="36" name="upload_image" value="" /><input id="upload_image_button" type="button" value="Last opp bilde" />';
-  echo '<br />Skriv inn en URL eller last opp et bilde';
-  echo '<img src="'.imgurl.'" alt="Preview" height="35" width="35" />';
- 
-	function my_admin_scripts() {
-		wp_enqueue_script('media-upload');
-		wp_enqueue_script('thickbox');
-		wp_register_script('my-upload', WP_PLUGIN_URL.'/my-script.js', array('jquery','media-upload','thickbox'));
-		wp_enqueue_script('my-upload');
-	}
-	function my_admin_styles() {
-		wp_enqueue_style('thickbox');
-	}
-	if((isset($_GET['page']))&&($_GET['page'] == 'Apartmentviewer')){
-		add_action('admin_print_scripts', 'my_admin_scripts');
-		add_action('admin_print_styles', 'my_admin_styles');
-	}
+  /*echo '<label for="upload_image">Last opp bilde av megler: </label><input id="upload_image" type="text" size="36" name="upload_image" value="" /><input id="upload_image_button" type="button" value="Last opp bilde" />';
+  echo '<br />Skriv inn en URL eller last opp et bilde';*/
 }
-
+function my_admin_scripts() {
+	wp_enqueue_script('media-upload');
+	wp_enqueue_script('thickbox');
+	wp_register_script('my-upload', WP_PLUGIN_URL.'/my-script.js', array('jquery','media-upload','thickbox'));
+	wp_enqueue_script('my-upload');
+	}
+add_action("admin_init", "my_admin_scripts");
+function my_admin_styles() {
+	wp_enqueue_style('thickbox');
+}
+if((isset($_GET['page']))&&($_GET['page'] == 'Apartmentviewer')){
+	add_action('admin_print_scripts', 'my_admin_scripts');
+	add_action('admin_print_styles', 'my_admin_styles');
+}
 /* When the post is saved, saves our custom data */
 function myplugin_save_postdata( $post_id ) {
  
@@ -122,10 +120,10 @@ function myplugin_save_postdata( $post_id ) {
 	$meglerfax = $_POST['meglerfaxvalue'];
 	update_post_meta($post_id, 'meglerfaxvalue', $meglerfax);
   }
-  /*if(isset($_POST['meglerbildevalue'])){
+  if(isset($_POST['meglerbildevalue'])){
 	$meglerbilde = $_POST['meglerbildevalue'];
 	update_post_meta($post_id, 'meglerbildevalue', $meglerbilde);
-  }*/
+  }
   
   //selgerinformasjon lagring
   if(strlen($_POST['selgernavnvalue'])){
@@ -144,9 +142,9 @@ function myplugin_save_postdata( $post_id ) {
 	$selgerfax = $_POST['selgerfaxvalue'];
 	update_post_meta($post_id, 'selgerfaxvalue', $selgerfax);
   }
-  /*if(isset($_POST['selgerbildevalue'])){
-	$selgerbilde = $_POST['selgerbildevalue'];
-	update_post_meta($post_id, 'selgerbildevalue', $selgerbilde);
+  /*if(isset($_POST['upload_image'])){
+	$selgerbilde = $_POST['upload_image'];
+	update_post_meta($post_id, 'upload_image', $selgerbilde);
   }*/
 }
 function apartmentContent($post){
@@ -183,7 +181,7 @@ function meglerContent($post){
   print_r( "<h3>Meglers fax: </h3>".get_post_meta($post, 'meglerfaxvalue',true)."<br />");
   }
   if(get_post_meta($post, 'meglerbildevalue',true)){
-  print_r( "<h3>Bilde av megler: </h3>".get_post_meta($post, 'meglerbildevalue',true)."<br />");
+  print_r( '<h3>Bilde av megler: </h3><img src="'.get_post_meta($post, "meglerbildevalue",true).'" alt="Bilde av megler" width="100" height="100"/><br />');
   }
 }
 function selgerContent($post){
@@ -202,9 +200,9 @@ function selgerContent($post){
   if(get_post_meta($post, 'selgerfaxvalue',true)){
   print_r( "<h3>Selgers fax: </h3>".get_post_meta($post, 'selgerfaxvalue',true)."<br />");
   }
-  if(get_post_meta($post, 'selgerbildevalue',true)){
-  print_r( "<h3>Bilde av selger: </h3>".get_post_meta($post, 'selgerbildevalue',true)."<br />");
-  }
+  /*if(get_post_meta($post, 'upload_image',true)){
+  print_r( '<h3>Bilde av selger: </h3><img src="'.get_post_meta($post, "upload_image",true).'" alt="Bilde av selger" width="40" height="40"/><br />');
+  }*/
 }
 
 add_filter('apartmentContent', 'apartmentContent', 10, 1);

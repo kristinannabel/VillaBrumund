@@ -38,15 +38,28 @@
 	deactivate_plugins(basename(__FILE__)); 
 } 
 
-if ( is_admin() )
+if ( is_admin() ) {
 	require_once dirname( __FILE__ ) . '/admin.php';
 	require_once dirname( __FILE__ ) . '/metabox.php';
 	require_once dirname( __FILE__ ) . '/apartment_widget.php';
 	require_once dirname( __FILE__ ) . '/megler_widget.php';
 	require_once dirname( __FILE__ ) . '/selger_widget.php';
-<<<<<<< HEAD
+	}
+	
+	function include_scripts() {
+		$handle = "myscript";
+		$src = plugins_url("my-script.js", __FILE__);
+		$deps = "jQuery";
+		$ver = false;
+		$in_footer = false;
+		wp_enqueue_script( 
+			$handle
+			,$src
+			,$deps
+			,$ver
+			,$in_footer 
+		);
+	}
+	
+	add_action("admin_init", "include_scripts");
 ?>
-=======
-	require_once dirname( __FILE__ ) . '/my-script.js';
-?>
->>>>>>> d656a6005b891bf742b39afbd607a8f57f412237

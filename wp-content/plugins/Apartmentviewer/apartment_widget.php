@@ -8,7 +8,7 @@ Version: 1
 Author URI: 
 */
  
- 
+ require_once dirname( __FILE__ ) . '/metabox.php';
 class ApartmentWidget extends WP_Widget
 {
   function ApartmentWidget()
