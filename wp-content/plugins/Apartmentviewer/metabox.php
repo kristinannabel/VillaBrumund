@@ -61,6 +61,23 @@ function myplugin_inner_custom_box4( $post ) {//selgerinformasjon
   echo '<label for="epost">Epost-adresse: </label><input type="text" id="selgerepostvalue" name="selgerepostvalue" value="'.get_post_meta($post->ID, 'selgerepostvalue',true).'" size="16" /><br />';
   echo '<label for="fax">Fax: </label><input type="text" id="selgerfaxvalue" name="selgerfaxvalue" value="'.get_post_meta($post->ID, 'selgerfaxvalue',true).'" size="16" /><br />';
   echo '<label for="bilde">Bilde av megler: </label><input type="file" id="selgerbildevalue" name="selgerbildevalue" value="'.get_post_meta($post->ID, 'selgerbildevalue',true).'" size="16" />';
+  echo '<label for="upload_image">Last opp bilde av megler: </label><input id="upload_image" type="text" size="36" name="upload_image" value="" /><input id="upload_image_button" type="button" value="Last opp bilde" />';
+  echo '<br />Skriv inn en URL eller last opp et bilde';
+  echo '<img src="'.imgurl.'" alt="Preview" height="35" width="35" />';
+ 
+	function my_admin_scripts() {
+		wp_enqueue_script('media-upload');
+		wp_enqueue_script('thickbox');
+		wp_register_script('my-upload', WP_PLUGIN_URL.'/my-script.js', array('jquery','media-upload','thickbox'));
+		wp_enqueue_script('my-upload');
+	}
+	function my_admin_styles() {
+		wp_enqueue_style('thickbox');
+	}
+	if((isset($_GET['page']))&&($_GET['page'] == 'Apartmentviewer')){
+		add_action('admin_print_scripts', 'my_admin_scripts');
+		add_action('admin_print_styles', 'my_admin_styles');
+	}
 }
 
 /* When the post is saved, saves our custom data */
