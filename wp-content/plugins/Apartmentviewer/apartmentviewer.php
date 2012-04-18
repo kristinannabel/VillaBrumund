@@ -4,6 +4,7 @@
 	Plugin URI: http://www.tunafishmedia.com/cinematuna/
 	Description: Used by millions! 
 	Version: 1.0
+	Depends: WP-SimpleViewer, Apartment Widget, Megler Widget, Selger Widget
 	Author: Ivan Le Hjelmeland, Mette Pernille Hellesvik, Kristin Annabel Folland
 	Author URI: http://www.tunafishmedia.com/
 	
