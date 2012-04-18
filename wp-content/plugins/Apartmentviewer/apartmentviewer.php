@@ -40,4 +40,7 @@
 if ( is_admin() )
 	require_once dirname( __FILE__ ) . '/admin.php';
 	require_once dirname( __FILE__ ) . '/metabox.php';
+	require_once dirname( __FILE__ ) . '/apartment_widget.php';
+	require_once dirname( __FILE__ ) . '/megler_widget.php';
+	require_once dirname( __FILE__ ) . '/selger_widget.php';
 ?>
