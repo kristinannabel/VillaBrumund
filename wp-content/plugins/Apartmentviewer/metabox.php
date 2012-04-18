@@ -9,6 +9,7 @@ add_action( 'save_post', 'myplugin_save_postdata' );
 if(isset($_POST['post_ID'])){
 	myplugin_save_postdata($_POST['post_ID']);
 }
+
 /*Her er box nr 1 - til høyre*/
 /* Adds a box to the main column on the Page edit screen */
 function myplugin_add_custom_box() {
@@ -131,4 +132,65 @@ function myplugin_save_postdata( $post_id ) {
 	update_post_meta($post_id, 'selgerbildevalue', $selgerbilde);
   }*/
 }
+function apartmentContent($post){
+  if((get_post_meta($post, 'arealvalue',true))||(get_post_meta($post, 'prisvalue',true))||(get_post_meta($post, 'soveromvalue',true))||(get_post_meta($post, 'badvalue',true))){
+	echo "<h3 class='widget-title'>Leilighetsinformasjon</h3>";
+  }
+  if(get_post_meta($post, 'arealvalue',true)){
+	print_r( "<h3>Areal: </h3>".get_post_meta($post, 'arealvalue',true)." kvm<br />");
+  }
+  if(get_post_meta($post, 'prisvalue',true)){
+	print_r( "<h3>Pris: </h3>".get_post_meta($post, 'prisvalue',true)." kr<br />");
+  }
+  if(get_post_meta($post, 'soveromvalue',true)){
+	print_r( "<h3>Antall soverom: </h3>".get_post_meta($post, 'soveromvalue',true)."<br />");
+  }
+  if(get_post_meta($post, 'badvalue',true)){
+	print_r( "<h3>Antall bad: </h3>".get_post_meta($post, 'badvalue',true)."<br />");
+  }
+}
+function meglerContent($post){
+  if((get_post_meta($post, 'meglernavnvalue',true))||(get_post_meta($post, 'meglertlfvalue',true))||(get_post_meta($post, 'meglerepostvalue',true))||(get_post_meta($post, 'meglerfaxvalue',true))||(get_post_meta($post, 'meglerbildevalue',true))){
+	echo "<h3 class='widget-title'>Meglerinformasjon</h3>";
+  }
+  if(get_post_meta($post, 'meglernavnvalue',true)){
+  print_r( "<h3>Meglers navn: </h3>".get_post_meta($post, 'meglernavnvalue',true)."<br />");
+  }
+  if(get_post_meta($post, 'meglertlfvalue',true)){
+  print_r( "<h3>Meglers tlfnr: </h3>".get_post_meta($post, 'meglertlfvalue',true)."<br />");
+  }
+  if(get_post_meta($post, 'meglerepostvalue',true)){
+  print_r( "<h3>Meglers epost: </h3>".get_post_meta($post, 'meglerepostvalue',true)."<br />");
+  }
+  if(get_post_meta($post, 'meglerfaxvalue',true)){
+  print_r( "<h3>Meglers fax: </h3>".get_post_meta($post, 'meglerfaxvalue',true)."<br />");
+  }
+  if(get_post_meta($post, 'meglerbildevalue',true)){
+  print_r( "<h3>Bilde av megler: </h3>".get_post_meta($post, 'meglerbildevalue',true)."<br />");
+  }
+}
+function selgerContent($post){
+  if((get_post_meta($post, 'selgernavnvalue',true))||(get_post_meta($post, 'selgertlfvalue',true))||(get_post_meta($post, 'selgerepostvalue',true))||(get_post_meta($post, 'selgerfaxvalue',true))||(get_post_meta($post, 'selgerbildevalue',true))){
+	echo "<h3 class='widget-title'>Selgerinformasjon</h3>";
+  }
+  if(get_post_meta($post, 'selgernavnvalue',true)){
+  print_r( "<h3>Selgers navn: </h3>".get_post_meta($post, 'selgernavnvalue',true)."<br />");
+  }
+  if(get_post_meta($post, 'selgertlfvalue',true)){
+  print_r( "<h3>Selgers tlfnr: </h3>".get_post_meta($post, 'selgertlfvalue',true)."<br />");
+  }
+  if(get_post_meta($post, 'selgerepostvalue',true)){
+  print_r( "<h3>Selgers epost: </h3>".get_post_meta($post, 'selgerepostvalue',true)."<br />");
+  }
+  if(get_post_meta($post, 'selgerfaxvalue',true)){
+  print_r( "<h3>Selgers fax: </h3>".get_post_meta($post, 'selgerfaxvalue',true)."<br />");
+  }
+  if(get_post_meta($post, 'selgerbildevalue',true)){
+  print_r( "<h3>Bilde av selger: </h3>".get_post_meta($post, 'selgerbildevalue',true)."<br />");
+  }
+}
+
+add_filter('apartmentContent', 'apartmentContent', 10, 1);
+add_filter('meglerContent', 'meglerContent', 10, 1);
+add_filter('selgerContent', 'selgerContent', 10, 1);
 ?>
