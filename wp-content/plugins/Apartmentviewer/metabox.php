@@ -26,6 +26,10 @@ function myplugin_inner_custom_box( $post ) {//generell informasjon
   wp_nonce_field( plugin_basename( __FILE__ ), 'myplugin_noncename' );
 
   // The actual fields for data entry
+  $field_id_value = get_post_meta($post->ID, 'infovis', true);
+  if($field_id_value == "yes") $field_id_checked = 'checked="checked"'; ?>
+    <input type="checkbox" name="infovis" value="yes" <?php echo $field_id_checked; ?> /><!--FUNGERER IKKE ENDA-->
+  <?php
 	echo '<label for="areal"><b>Areal: </b></label><input type="text" id="arealvalue" name="arealvalue" value="'.get_post_meta($post->ID, 'arealvalue',true).'" size="16" /><br />';
 	echo '<label for="pris"><b>Pris: </b></label><input type="text" id="prisvalue" name="prisvalue" value="'.get_post_meta($post->ID, 'prisvalue',true).'" size="16" /><br />';
 	echo '<label for="soverom"><b>Soverom: </b></label><input type="text" id="soveromvalue" name="soveromvalue" value="'.get_post_meta($post->ID, 'soveromvalue',true).'" size="16" /><br />';
@@ -83,6 +87,9 @@ function myplugin_save_postdata( $post_id ) {
   if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
       return;
 //Kontaktinformasjons lagring
+  $infovis = $_POST['infovis'];
+  update_post_meta($post_id, "infovis", $_POST["infovis"]);//FUNGERER IKKE ENDA
+  
   if(strlen($_POST['arealvalue'])){
 	$areal = $_POST['arealvalue'];
 	update_post_meta($post_id, 'arealvalue', $areal);
@@ -141,6 +148,8 @@ function myplugin_save_postdata( $post_id ) {
   }
 }
 function apartmentContent($post){
+$meta = get_post_meta($post, 'infovis', true);
+if(get_post_meta($post, 'infovis', true) == 'on') {//FUNGERER IKKE ENDA
   if((get_post_meta($post, 'arealvalue',true))||(get_post_meta($post, 'prisvalue',true))||(get_post_meta($post, 'soveromvalue',true))||(get_post_meta($post, 'badvalue',true))){
 	echo "<h3 class='widget-title'>Leilighetsinformasjon</h3>";
   }
@@ -156,6 +165,10 @@ function apartmentContent($post){
   if(get_post_meta($post, 'badvalue',true)){
 	print_r( "<b>Antall bad: </b>".get_post_meta($post, 'badvalue',true)."<br />");
   }
+}
+else{
+print_r('Hello');
+}
 }
 function meglerContent($post){
   if((get_post_meta($post, 'meglernavnvalue',true))||(get_post_meta($post, 'meglertlfvalue',true))||(get_post_meta($post, 'meglerepostvalue',true))||(get_post_meta($post, 'meglerfaxvalue',true))||(get_post_meta($post, 'meglerbildevalue',true))){
