@@ -20,16 +20,16 @@ add_meta_box( 'myplugin_sectionid2', __('Bildegalleri', 'myplugin_textdomain'), 
 }
 
 /* Prints the box content */
-function myplugin_inner_custom_box( $post ) {
+function myplugin_inner_custom_box( $post ) {//generell informasjon
 
   // Use nonce for verification
   wp_nonce_field( plugin_basename( __FILE__ ), 'myplugin_noncename' );
 
   // The actual fields for data entry
-	echo '<label for="areal">Areal: </label><input type="text" id="arealvalue" name="arealvalue" value="'.get_post_meta($post->ID, 'arealvalue',true).'" size="16" /><br />';
-	echo '<label for="pris">Pris: </label><input type="text" id="prisvalue" name="prisvalue" value="'.get_post_meta($post->ID, 'prisvalue',true).'" size="16" /><br />';
-	echo '<label for="soverom">Soverom: </label><input type="text" id="soveromvalue" name="soveromvalue" value="'.get_post_meta($post->ID, 'soveromvalue',true).'" size="16" /><br />';
-	echo '<label for="bad">Bad: </label><input type="text" id="badvalue" name="badvalue" value="'.get_post_meta($post->ID, 'badvalue',true).'" size="16" />';
+	echo '<label for="areal"><b>Areal: </b></label><input type="text" id="arealvalue" name="arealvalue" value="'.get_post_meta($post->ID, 'arealvalue',true).'" size="16" /><br />';
+	echo '<label for="pris"><b>Pris: </b></label><input type="text" id="prisvalue" name="prisvalue" value="'.get_post_meta($post->ID, 'prisvalue',true).'" size="16" /><br />';
+	echo '<label for="soverom"><b>Soverom: </b></label><input type="text" id="soveromvalue" name="soveromvalue" value="'.get_post_meta($post->ID, 'soveromvalue',true).'" size="16" /><br />';
+	echo '<label for="bad"><b>Bad: </b></label><input type="text" id="badvalue" name="badvalue" value="'.get_post_meta($post->ID, 'badvalue',true).'" size="16" />';
 }
 
 function myplugin_inner_custom_box2( $post ) {
@@ -46,23 +46,21 @@ function myplugin_inner_custom_box3( $post ) {//meglerinformasjon
   // Use nonce for verification
   wp_nonce_field( plugin_basename( __FILE__ ), 'myplugin_noncename' );
   
-  echo '<label for="navn">Navn: </label><input type="text" id="meglernavnvalue" name="meglernavnvalue" value="'.get_post_meta($post->ID, 'meglernavnvalue',true).'" size="16" /><br />';
-  echo '<label for="tlf">Telefonnummer:&nbsp;</label><input type="text" id="meglertlfvalue" name="meglertlfvalue" value="'.get_post_meta($post->ID, 'meglertlfvalue',true).'" size="16" /><br />';
-  echo '<label for="epost">Epost-adresse: </label><input type="text" id="meglerepostvalue" name="meglerepostvalue" value="'.get_post_meta($post->ID, 'meglerepostvalue',true).'" size="16" /><br />';
-  echo '<label for="fax">Fax: </label><input type="text" id="meglerfaxvalue" name="meglerfaxvalue" value="'.get_post_meta($post->ID, 'meglerfaxvalue',true).'" size="16" /><br />';
-  echo '<label for="meglerbildevalue">Last opp bilde av megler: </label><input id="meglerbildevalue" type="text" size="36" name="meglerbildevalue" value="'.get_post_meta($post->ID, 'meglerbildevalue',true).'" /><input id="upload_image_button_megler" type="button" value="Last opp bilde" />';
+  echo '<label for="navn"><b>Navn: </b></label><input type="text" id="meglernavnvalue" name="meglernavnvalue" value="'.get_post_meta($post->ID, 'meglernavnvalue',true).'" size="16" /><br />';
+  echo '<label for="tlf"><b>Telefonnummer:&nbsp;</b></label><input type="text" id="meglertlfvalue" name="meglertlfvalue" value="'.get_post_meta($post->ID, 'meglertlfvalue',true).'" size="16" /><br />';
+  echo '<label for="epost"><b>Epost-adresse: </b></label><input type="text" id="meglerepostvalue" name="meglerepostvalue" value="'.get_post_meta($post->ID, 'meglerepostvalue',true).'" size="16" /><br />';
+  echo '<label for="fax"><b>Fax: </b></label><input type="text" id="meglerfaxvalue" name="meglerfaxvalue" value="'.get_post_meta($post->ID, 'meglerfaxvalue',true).'" size="16" /><br />';
+  echo '<label for="meglerbildevalue"><b>Last opp bilde av megler: </b></label><input id="meglerbildevalue" type="text" size="36" name="meglerbildevalue" value="'.get_post_meta($post->ID, 'meglerbildevalue',true).'" /><input id="upload_image_button_megler" type="button" value="Last opp bilde" />';
   echo '<br />Skriv inn en URL eller last opp et bilde';
+  echo '<img src="'.get_post_meta($post->ID, 'meglerbildevalue',true).'" alt="Meglerbilde preview"';
 }
 function myplugin_inner_custom_box4( $post ) {//selgerinformasjon
 
-  // Use nonce for verification
   wp_nonce_field( plugin_basename( __FILE__ ), 'myplugin_noncename' );
-  echo '<label for="navn">Navn: </label><input type="text" id="selgernavnvalue" name="selgernavnvalue" value="'.get_post_meta($post->ID, 'selgernavnvalue',true).'" size="16" /><br />';
-  echo '<label for="tlf">Telefonnummer:&nbsp;</label><input type="text" id="selgertlfvalue" name="selgertlfvalue" value="'.get_post_meta($post->ID, 'selgertlfvalue',true).'" size="16" /><br />';
-  echo '<label for="epost">Epost-adresse: </label><input type="text" id="selgerepostvalue" name="selgerepostvalue" value="'.get_post_meta($post->ID, 'selgerepostvalue',true).'" size="16" /><br />';
-  echo '<label for="fax">Fax: </label><input type="text" id="selgerfaxvalue" name="selgerfaxvalue" value="'.get_post_meta($post->ID, 'selgerfaxvalue',true).'" size="16" /><br />';
-  /*echo '<label for="upload_image">Last opp bilde av megler: </label><input id="upload_image" type="text" size="36" name="upload_image" value="" /><input id="upload_image_button" type="button" value="Last opp bilde" />';
-  echo '<br />Skriv inn en URL eller last opp et bilde';*/
+  echo '<label for="navn"><b>Navn: </b></label><input type="text" id="selgernavnvalue" name="selgernavnvalue" value="'.get_post_meta($post->ID, 'selgernavnvalue',true).'" size="16" /><br />';
+  echo '<label for="tlf"><b>Telefonnummer:&nbsp;</b></label><input type="text" id="selgertlfvalue" name="selgertlfvalue" value="'.get_post_meta($post->ID, 'selgertlfvalue',true).'" size="16" /><br />';
+  echo '<label for="epost"><b>Epost-adresse: </b></label><input type="text" id="selgerepostvalue" name="selgerepostvalue" value="'.get_post_meta($post->ID, 'selgerepostvalue',true).'" size="16" /><br />';
+  echo '<label for="fax"><b>Fax: </b></label><input type="text" id="selgerfaxvalue" name="selgerfaxvalue" value="'.get_post_meta($post->ID, 'selgerfaxvalue',true).'" size="16" /><br />';
 }
 function my_admin_scripts() {
 	wp_enqueue_script('media-upload');
@@ -152,16 +150,16 @@ function apartmentContent($post){
 	echo "<h3 class='widget-title'>Leilighetsinformasjon</h3>";
   }
   if(get_post_meta($post, 'arealvalue',true)){
-	print_r( "<h3>Areal: </h3>".get_post_meta($post, 'arealvalue',true)." kvm<br />");
+	print_r( "<b>Areal: </b>".get_post_meta($post, 'arealvalue',true)." kvm<br />");
   }
   if(get_post_meta($post, 'prisvalue',true)){
-	print_r( "<h3>Pris: </h3>".get_post_meta($post, 'prisvalue',true)." kr<br />");
+	print_r( "<b>Pris: </b>".get_post_meta($post, 'prisvalue',true)." kr<br />");
   }
   if(get_post_meta($post, 'soveromvalue',true)){
-	print_r( "<h3>Antall soverom: </h3>".get_post_meta($post, 'soveromvalue',true)."<br />");
+	print_r( "<b>Antall soverom: </b>".get_post_meta($post, 'soveromvalue',true)."<br />");
   }
   if(get_post_meta($post, 'badvalue',true)){
-	print_r( "<h3>Antall bad: </h3>".get_post_meta($post, 'badvalue',true)."<br />");
+	print_r( "<b>Antall bad: </b>".get_post_meta($post, 'badvalue',true)."<br />");
   }
 }
 function meglerContent($post){
@@ -169,19 +167,19 @@ function meglerContent($post){
 	echo "<h3 class='widget-title'>Meglerinformasjon</h3>";
   }
   if(get_post_meta($post, 'meglernavnvalue',true)){
-  print_r( "<h3>Meglers navn: </h3>".get_post_meta($post, 'meglernavnvalue',true)."<br />");
+  print_r( "<b>Meglers navn: </b>".get_post_meta($post, 'meglernavnvalue',true)."<br />");
   }
   if(get_post_meta($post, 'meglertlfvalue',true)){
-  print_r( "<h3>Meglers tlfnr: </h3>".get_post_meta($post, 'meglertlfvalue',true)."<br />");
+  print_r( "<b>Meglers tlfnr: </b>".get_post_meta($post, 'meglertlfvalue',true)."<br />");
   }
   if(get_post_meta($post, 'meglerepostvalue',true)){
-  print_r( "<h3>Meglers epost: </h3>".get_post_meta($post, 'meglerepostvalue',true)."<br />");
+  print_r( "<b>Meglers epost: </b>".get_post_meta($post, 'meglerepostvalue',true)."<br />");
   }
   if(get_post_meta($post, 'meglerfaxvalue',true)){
-  print_r( "<h3>Meglers fax: </h3>".get_post_meta($post, 'meglerfaxvalue',true)."<br />");
+  print_r( "<b>Meglers fax: </b>".get_post_meta($post, 'meglerfaxvalue',true)."<br />");
   }
   if(get_post_meta($post, 'meglerbildevalue',true)){
-  print_r( '<h3>Bilde av megler: </h3><img src="'.get_post_meta($post, "meglerbildevalue",true).'" alt="Bilde av megler" width="100" height="100"/><br />');
+  print_r( '<b>Bilde av megler: </b><br><img src="'.get_post_meta($post, "meglerbildevalue",true).'" alt="Bilde av megler" width="100" height="100"/><br />');
   }
 }
 function selgerContent($post){
@@ -189,16 +187,16 @@ function selgerContent($post){
 	echo "<h3 class='widget-title'>Selgerinformasjon</h3>";
   }
   if(get_post_meta($post, 'selgernavnvalue',true)){
-  print_r( "<h3>Selgers navn: </h3>".get_post_meta($post, 'selgernavnvalue',true)."<br />");
+  print_r( "<b>Selgers navn: </b>".get_post_meta($post, 'selgernavnvalue',true)."<br />");
   }
   if(get_post_meta($post, 'selgertlfvalue',true)){
-  print_r( "<h3>Selgers tlfnr: </h3>".get_post_meta($post, 'selgertlfvalue',true)."<br />");
+  print_r( "<b>Selgers tlfnr: </b>".get_post_meta($post, 'selgertlfvalue',true)."<br />");
   }
   if(get_post_meta($post, 'selgerepostvalue',true)){
-  print_r( "<h3>Selgers epost: </h3>".get_post_meta($post, 'selgerepostvalue',true)."<br />");
+  print_r( "<b>Selgers epost: </b>".get_post_meta($post, 'selgerepostvalue',true)."<br />");
   }
   if(get_post_meta($post, 'selgerfaxvalue',true)){
-  print_r( "<h3>Selgers fax: </h3>".get_post_meta($post, 'selgerfaxvalue',true)."<br />");
+  print_r( "<b>Selgers fax: </b>".get_post_meta($post, 'selgerfaxvalue',true)."<br />");
   }
   /*if(get_post_meta($post, 'upload_image',true)){
   print_r( '<h3>Bilde av selger: </h3><img src="'.get_post_meta($post, "upload_image",true).'" alt="Bilde av selger" width="40" height="40"/><br />');
