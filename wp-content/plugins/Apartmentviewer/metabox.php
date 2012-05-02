@@ -51,8 +51,7 @@ function myplugin_inner_custom_box3( $post ) {//meglerinformasjon
   echo '<label for="epost"><b>Epost-adresse: </b></label><input type="text" id="meglerepostvalue" name="meglerepostvalue" value="'.get_post_meta($post->ID, 'meglerepostvalue',true).'" size="16" /><br />';
   echo '<label for="fax"><b>Fax: </b></label><input type="text" id="meglerfaxvalue" name="meglerfaxvalue" value="'.get_post_meta($post->ID, 'meglerfaxvalue',true).'" size="16" /><br />';
   echo '<label for="meglerbildevalue"><b>Last opp bilde av megler: </b></label><input id="meglerbildevalue" type="text" size="36" name="meglerbildevalue" value="'.get_post_meta($post->ID, 'meglerbildevalue',true).'" /><input id="upload_image_button_megler" type="button" value="Last opp bilde" />';
-  echo '<br />Skriv inn en URL eller last opp et bilde';
-  echo '<img src="'.get_post_meta($post->ID, 'meglerbildevalue',true).'" alt="Meglerbilde preview"';
+  echo '<br>Skriv inn en URL eller last opp et bilde';
 }
 function myplugin_inner_custom_box4( $post ) {//selgerinformasjon
 
@@ -140,10 +139,6 @@ function myplugin_save_postdata( $post_id ) {
 	$selgerfax = $_POST['selgerfaxvalue'];
 	update_post_meta($post_id, 'selgerfaxvalue', $selgerfax);
   }
-  /*if(isset($_POST['upload_image'])){
-	$selgerbilde = $_POST['upload_image'];
-	update_post_meta($post_id, 'upload_image', $selgerbilde);
-  }*/
 }
 function apartmentContent($post){
   if((get_post_meta($post, 'arealvalue',true))||(get_post_meta($post, 'prisvalue',true))||(get_post_meta($post, 'soveromvalue',true))||(get_post_meta($post, 'badvalue',true))){
@@ -198,9 +193,6 @@ function selgerContent($post){
   if(get_post_meta($post, 'selgerfaxvalue',true)){
   print_r( "<b>Selgers fax: </b>".get_post_meta($post, 'selgerfaxvalue',true)."<br />");
   }
-  /*if(get_post_meta($post, 'upload_image',true)){
-  print_r( '<h3>Bilde av selger: </h3><img src="'.get_post_meta($post, "upload_image",true).'" alt="Bilde av selger" width="40" height="40"/><br />');
-  }*/
 }
 
 add_filter('apartmentContent', 'apartmentContent', 10, 1);
