@@ -16,7 +16,6 @@ function myplugin_add_custom_box() {
 add_meta_box( 'myplugin_sectionid', __('Leilighetsinformasjon', 'myplugin_textdomain'), 'myplugin_inner_custom_box', 'page', 'side', 'core');
 add_meta_box( 'myplugin_sectionid3', __('Meglerinformasjon', 'myplugin_textdomain'), 'myplugin_inner_custom_box3', 'page', 'side', 'core');
 add_meta_box( 'myplugin_sectionid4', __('Selgerinformasjon', 'myplugin_textdomain'), 'myplugin_inner_custom_box4', 'page', 'side', 'core');
-add_meta_box( 'myplugin_sectionid2', __('Bildegalleri', 'myplugin_textdomain'), 'myplugin_inner_custom_box2', 'page', 'normal', 'high');
 }
 
 /* Prints the box content */
@@ -26,23 +25,13 @@ function myplugin_inner_custom_box( $post ) {//generell informasjon
   wp_nonce_field( plugin_basename( __FILE__ ), 'myplugin_noncename' );
 
   // The actual fields for data entry
-  $field_id_value = get_post_meta($post->ID, 'infovis', true);
-  if($field_id_value == "yes") $field_id_checked = 'checked="checked"'; ?>
-    <input type="checkbox" name="infovis" value="yes" <?php echo $field_id_checked; ?> /><!--FUNGERER IKKE ENDA-->
-  <?php
-	echo '<label for="areal"><b>Areal: </b></label><input type="text" id="arealvalue" name="arealvalue" value="'.get_post_meta($post->ID, 'arealvalue',true).'" size="16" /><br />';
-	echo '<label for="pris"><b>Pris: </b></label><input type="text" id="prisvalue" name="prisvalue" value="'.get_post_meta($post->ID, 'prisvalue',true).'" size="16" /><br />';
-	echo '<label for="soverom"><b>Soverom: </b></label><input type="text" id="soveromvalue" name="soveromvalue" value="'.get_post_meta($post->ID, 'soveromvalue',true).'" size="16" /><br />';
-	echo '<label for="bad"><b>Bad: </b></label><input type="text" id="badvalue" name="badvalue" value="'.get_post_meta($post->ID, 'badvalue',true).'" size="16" />';
-}
-
-function myplugin_inner_custom_box2( $post ) {
-
-  // Use nonce for verification
-  wp_nonce_field( plugin_basename( __FILE__ ), 'myplugin_noncename' );
-
-  // The actual fields for data entry
-  echo '<h3>Her skal det komme et galleri!</h3>';
+  echo '<label for="areal"><b>Areal: </b></label><input type="text" id="arealvalue" name="arealvalue" value="'.get_post_meta($post->ID, 'arealvalue',true).'" size="16" /><br />';
+  echo '<label for="pris"><b>Pris: </b></label><input type="text" id="prisvalue" name="prisvalue" value="'.get_post_meta($post->ID, 'prisvalue',true).'" size="16" /><br />';
+  echo '<label for="soverom"><b>Soverom: </b></label><input type="text" id="soveromvalue" name="soveromvalue" value="'.get_post_meta($post->ID, 'soveromvalue',true).'" size="16" /><br />';
+  echo '<label for="bad"><b>Bad: </b></label><input type="text" id="badvalue" name="badvalue" value="'.get_post_meta($post->ID, 'badvalue',true).'" size="16" /><br />';
+  echo '<label for)"prospekt"><b>Last ned prospekt: </b></label><input id="prospektvalue" type="text" size="36" name="prospektvalue" value="'.get_post_meta($post->ID, 'prospektvalue',true).'" /><input id="upload_pdf_button" type="button" value="Last opp prospekt" />';
+  echo '<br><br><label for="url"><b>URL: </b></label><input type="text" id="urlenvalue" name="urlenvalue" value="'.get_post_meta($post->ID, 'urlenvalue',true).'" size="16" /><br />';
+  echo 'Skriv inn URL som kjøper skal sendes til når de trykker på bud-knappen';
 }
 
 function myplugin_inner_custom_box3( $post ) {//meglerinformasjon
@@ -86,10 +75,7 @@ function myplugin_save_postdata( $post_id ) {
   // If it is our form has not been submitted, so we dont want to do anything
   if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
       return;
-//Kontaktinformasjons lagring
-  $infovis = $_POST['infovis'];
-  update_post_meta($post_id, "infovis", $_POST["infovis"]);//FUNGERER IKKE ENDA
-  
+//Kontaktinformasjons lagring  
   if(strlen($_POST['arealvalue'])){
 	$areal = $_POST['arealvalue'];
 	update_post_meta($post_id, 'arealvalue', $areal);
@@ -105,6 +91,14 @@ function myplugin_save_postdata( $post_id ) {
   if(strlen($_POST['badvalue'])){
 	$bad = $_POST['badvalue'];
 	update_post_meta($post_id, 'badvalue', $bad);
+  }
+  if(isset($_POST['prospektvalue'])){
+	$prospektbilde = $_POST['prospektvalue'];
+	update_post_meta($post_id, 'prospektvalue', $prospektbilde);
+  }
+  if(strlen($_POST['urlenvalue'])){
+	$urlen = $_POST['urlenvalue'];
+	update_post_meta($post_id, 'urlenvalue', $urlen);
   }
   
   //meglerinformasjon lagring
@@ -148,8 +142,6 @@ function myplugin_save_postdata( $post_id ) {
   }
 }
 function apartmentContent($post){
-$meta = get_post_meta($post, 'infovis', true);
-if(get_post_meta($post, 'infovis', true) == 'on') {//FUNGERER IKKE ENDA
   if((get_post_meta($post, 'arealvalue',true))||(get_post_meta($post, 'prisvalue',true))||(get_post_meta($post, 'soveromvalue',true))||(get_post_meta($post, 'badvalue',true))){
 	echo "<h3 class='widget-title'>Leilighetsinformasjon</h3>";
   }
@@ -165,10 +157,12 @@ if(get_post_meta($post, 'infovis', true) == 'on') {//FUNGERER IKKE ENDA
   if(get_post_meta($post, 'badvalue',true)){
 	print_r( "<b>Antall bad: </b>".get_post_meta($post, 'badvalue',true)."<br />");
   }
-}
-else{
-print_r('Hello');
-}
+  if(get_post_meta($post, 'prospektvalue',true)){
+  print_r( '<b>Prospekt: </b><a href="'.get_post_meta($post, "prospektvalue",true).'">Vis</a><br />');
+  }
+  if(get_post_meta($post, 'urlenvalue',true)){
+	print_r( "<br><a href='http://".get_post_meta($post, 'urlenvalue',true)."'><img src='".network_site_url( '/' )."/wp-content/plugins/Apartmentviewer/images/knapp.jpg' alt='Legg inn bud'/></a>");
+  }
 }
 function meglerContent($post){
   if((get_post_meta($post, 'meglernavnvalue',true))||(get_post_meta($post, 'meglertlfvalue',true))||(get_post_meta($post, 'meglerepostvalue',true))||(get_post_meta($post, 'meglerfaxvalue',true))||(get_post_meta($post, 'meglerbildevalue',true))){
@@ -195,16 +189,16 @@ function selgerContent($post){
 	echo "<h3 class='widget-title'>Selgerinformasjon</h3>";
   }
   if(get_post_meta($post, 'selgernavnvalue',true)){
-  print_r( "<b>Selgers navn: </b>".get_post_meta($post, 'selgernavnvalue',true)."<br />");
+	print_r( "<b>Selgers navn: </b>".get_post_meta($post, 'selgernavnvalue',true)."<br />");
   }
   if(get_post_meta($post, 'selgertlfvalue',true)){
-  print_r( "<b>Selgers tlfnr: </b>".get_post_meta($post, 'selgertlfvalue',true)."<br />");
+	print_r( "<b>Selgers tlfnr: </b>".get_post_meta($post, 'selgertlfvalue',true)."<br />");
   }
   if(get_post_meta($post, 'selgerepostvalue',true)){
-  print_r( "<b>Selgers epost: </b>".get_post_meta($post, 'selgerepostvalue',true)."<br />");
+	print_r( "<b>Selgers epost: </b>".get_post_meta($post, 'selgerepostvalue',true)."<br />");
   }
   if(get_post_meta($post, 'selgerfaxvalue',true)){
-  print_r( "<b>Selgers fax: </b>".get_post_meta($post, 'selgerfaxvalue',true)."<br />");
+	print_r( "<b>Selgers fax: </b>".get_post_meta($post, 'selgerfaxvalue',true)."<br />");
   }
 }
 
