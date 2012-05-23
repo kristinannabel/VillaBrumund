@@ -6,7 +6,7 @@
 	Depends: Apartment Widget, Megler Widget, Selger Widget, Slideshow Gallery
 	Author: Ivan Le Hjelmeland, Mette Pernille Hellesvik, Kristin Annabel Folland
 	
-	Copyright 2012 Ivan Lé Hjelmeland (email : ivan.hjelmeland@gmail.com)  
+	Copyright 2012
 	This program is free software; you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License, version 2, as published by the
 	Free Software Foundation.  
@@ -60,7 +60,9 @@ if ( is_admin() ) {
 	}
 	
 	add_action("admin_init", "include_scripts");
-	
+
+//Funksjon som henter ut en liste med alle barnesidene til angitt id, med featured image om denne er satt
+//Eksempel på shortcode : [menu id="7"]
 function get_apartments($atts) {
 	extract(shortcode_atts(array('id' => '#'), $atts));
 	$pages = get_pages(array( 'child_of' => $id, 'sort_column' => 'post_title'));

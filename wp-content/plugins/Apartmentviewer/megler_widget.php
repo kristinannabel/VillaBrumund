@@ -1,14 +1,10 @@
 ﻿<?php
 /*
 Plugin Name: Megler Widget
-Plugin URI: 
 Description: En widget som viser meglerinformasjonen fra metaboxene i page-edit
-Author: Kristin Annabel
+Author: Kristin Annabel Folland, Mette Pernille Hellesvik, Ivan Le Hjelmeland
 Version: 1
-Author URI: 
-*/
- 
- 
+*/ 
 class MeglerWidget extends WP_Widget
 {
   function MeglerWidget()
@@ -41,12 +37,11 @@ class MeglerWidget extends WP_Widget
     $title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
  
     if (!empty($title))
-      //echo $before_title . $title . $after_title;;
+		//Vi ønsker ikke å vise tittelen på widgeten til brukeren, fordi vi har vår egen tittel, generert i koden
  
-    // WIDGET CODE GOES HERE
-	meglerContent($_GET['page_id']);
+    // WIDGET KODE
+	meglerContent($_GET['page_id']);//Henter denne funksjonen fra nederst i metabox.php
   }
- 
 }
 add_action( 'widgets_init', create_function('', 'return register_widget("MeglerWidget");') );
 ?>

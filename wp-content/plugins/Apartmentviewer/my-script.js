@@ -1,6 +1,9 @@
 ﻿jQuery(document).ready(function() {
 var orig_send_to_editor = window.send_to_editor;
-
+/**
+En funksjon på knappen til meglerbildet, der Wordpress sin mediaopplaster åpnes.
+Setter inn URL'en i overstående input-felt. Koden gjør det mulig å legge inn bilde både her og som vanlig i editoren.
+*/
 jQuery('#upload_image_button_megler').click(function() {
     formfield = jQuery(this).prev('input');
         tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
@@ -16,6 +19,9 @@ jQuery('#upload_image_button_megler').click(function() {
         }
         return false;
     });
+/**
+Den samme funksjonen, men denne gangen for å hente en pdf-url, og legger denne i overstående input-felt
+*/
 jQuery('#upload_pdf_button').click(function() {
     formfield = jQuery(this).prev('input');
         tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');

@@ -1,18 +1,13 @@
 ﻿<?php
 
 add_action( 'add_meta_boxes', 'myplugin_add_custom_box' );
-// backwards compatible (before WP 3.0)
-// add_action( 'admin_init', 'myplugin_add_custom_box', 1 );
 
-/* Do something with the data entered */
 add_action( 'save_post', 'myplugin_save_postdata' );
 
 if(isset($_POST['post_ID'])){
 	myplugin_save_postdata($_POST['post_ID']);
 }
 
-/*Her er box nr 1 - til høyre*/
-/* Adds a box to the main column on the Page edit screen */
 function myplugin_add_custom_box() {
 add_meta_box( 'myplugin_sectionid', __('Leilighetsinformasjon', 'myplugin_textdomain'), 'myplugin_inner_custom_box', 'page', 'side', 'core');
 add_meta_box( 'myplugin_sectionid3', __('Meglerinformasjon', 'myplugin_textdomain'), 'myplugin_inner_custom_box3', 'page', 'side', 'core');
@@ -20,12 +15,11 @@ add_meta_box( 'myplugin_sectionid4', __('Selgerinformasjon', 'myplugin_textdomai
 }
 
 /* Prints the box content */
-function myplugin_inner_custom_box( $post ) {//generell informasjon
+function myplugin_inner_custom_box( $post ) {//metabox for generell informasjon om leilighet
 
-  // Use nonce for verification
   wp_nonce_field( plugin_basename( __FILE__ ), 'myplugin_noncename' );
 
-  // The actual fields for data entry
+  // Feltene i leilighets-metaboxen
   echo '<label for="areal"><b>Areal: </b></label><input type="text" id="arealvalue" name="arealvalue" value="'.get_post_meta($post->ID, 'arealvalue',true).'" size="16" /><br />';
   echo '<label for="pris"><b>Pris: </b></label><input type="text" id="prisvalue" name="prisvalue" value="'.get_post_meta($post->ID, 'prisvalue',true).'" size="16" /><br />';
   echo '<label for="soverom"><b>Soverom: </b></label><input type="text" id="soveromvalue" name="soveromvalue" value="'.get_post_meta($post->ID, 'soveromvalue',true).'" size="16" /><br />';
@@ -35,11 +29,11 @@ function myplugin_inner_custom_box( $post ) {//generell informasjon
   echo 'Skriv inn URL som kjøper skal sendes til når de trykker på bud-knappen';
 }
 
-function myplugin_inner_custom_box3( $post ) {//meglerinformasjon
+function myplugin_inner_custom_box3( $post ) {//metabox for meglerinformasjon
 
-  // Use nonce for verification
   wp_nonce_field( plugin_basename( __FILE__ ), 'myplugin_noncename' );
   
+  //Felter i melger-metaboxen
   echo '<label for="navn"><b>Navn: </b></label><input type="text" id="meglernavnvalue" name="meglernavnvalue" value="'.get_post_meta($post->ID, 'meglernavnvalue',true).'" size="16" /><br />';
   echo '<label for="tlf"><b>Telefonnummer:&nbsp;</b></label><input type="text" id="meglertlfvalue" name="meglertlfvalue" value="'.get_post_meta($post->ID, 'meglertlfvalue',true).'" size="16" /><br />';
   echo '<label for="epost"><b>Epost-adresse: </b></label><input type="text" id="meglerepostvalue" name="meglerepostvalue" value="'.get_post_meta($post->ID, 'meglerepostvalue',true).'" size="16" /><br />';
@@ -47,9 +41,11 @@ function myplugin_inner_custom_box3( $post ) {//meglerinformasjon
   echo '<label for="meglerbildevalue"><b>Last opp bilde av megler: </b></label><input id="meglerbildevalue" type="text" size="36" name="meglerbildevalue" value="'.get_post_meta($post->ID, 'meglerbildevalue',true).'" /><input id="upload_image_button_megler" type="button" value="Last opp bilde" />';
   echo '<br>Skriv inn en URL eller last opp et bilde';
 }
-function myplugin_inner_custom_box4( $post ) {//selgerinformasjon
+function myplugin_inner_custom_box4( $post ) {//metabox for selgerinformasjon
 
   wp_nonce_field( plugin_basename( __FILE__ ), 'myplugin_noncename' );
+  
+  //Felter i selger-metabox
   echo '<label for="navn"><b>Navn: </b></label><input type="text" id="selgernavnvalue" name="selgernavnvalue" value="'.get_post_meta($post->ID, 'selgernavnvalue',true).'" size="16" /><br />';
   echo '<label for="tlf"><b>Telefonnummer:&nbsp;</b></label><input type="text" id="selgertlfvalue" name="selgertlfvalue" value="'.get_post_meta($post->ID, 'selgertlfvalue',true).'" size="16" /><br />';
   echo '<label for="epost"><b>Epost-adresse: </b></label><input type="text" id="selgerepostvalue" name="selgerepostvalue" value="'.get_post_meta($post->ID, 'selgerepostvalue',true).'" size="16" /><br />';
@@ -69,11 +65,11 @@ if((isset($_GET['page']))&&($_GET['page'] == 'Apartmentviewer')){
 	add_action('admin_print_scripts', 'my_admin_scripts');
 	add_action('admin_print_styles', 'my_admin_styles');
 }
-/* When the post is saved, saves our custom data */
+/* Når pagen er lagret, lagres våre felt-dataer også */
 function myplugin_save_postdata( $post_id ) {
  
- // verify if this is an auto save routine. 
-  // If it is our form has not been submitted, so we dont want to do anything
+ // sjekker om dette er en auto-lagring rutine
+  // Dersom det er det har ikke skjemaet vårt blitt lagret og vi ønsker ikke å gjøre noe
   if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
       return;
 //Kontaktinformasjons lagring  
@@ -143,6 +139,7 @@ function myplugin_save_postdata( $post_id ) {
   }
 }
 
+//Innholdet som blir vist i leilighets-widgeten
 function apartmentContent($post){
 $options = get_option('plugin_options');
   if((get_post_meta($post, 'arealvalue',true))||(get_post_meta($post, 'prisvalue',true))||(get_post_meta($post, 'soveromvalue',true))||(get_post_meta($post, 'badvalue',true))){
@@ -167,6 +164,7 @@ $options = get_option('plugin_options');
 	print_r( "<br><a href='http://".get_post_meta($post, 'urlenvalue',true)."'><img src='".network_site_url( '/' )."/wp-content/plugins/Apartmentviewer/images/knapp.jpg' alt='Legg inn bud'/></a>");
   }
 }
+//Informasjonen som blir vist i megler-widgeten
 function meglerContent($post){
 $options = get_option('plugin_options');
   if((get_post_meta($post, 'meglernavnvalue',true))||(get_post_meta($post, 'meglertlfvalue',true))||(get_post_meta($post, 'meglerepostvalue',true))||(get_post_meta($post, 'meglerfaxvalue',true))||(get_post_meta($post, 'meglerbildevalue',true))){
@@ -188,6 +186,7 @@ $options = get_option('plugin_options');
   print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Bilde av megler: </b><br><img src=".get_post_meta($post, 'meglerbildevalue',true)." alt='Bilde av megler' width='" . $options['pic_width'] . "' /><br />");
   }
 }
+//Informasjonen som blir vist i selger-widgeten
 function selgerContent($post){
 $options = get_option('plugin_options');
   if((get_post_meta($post, 'selgernavnvalue',true))||(get_post_meta($post, 'selgertlfvalue',true))||(get_post_meta($post, 'selgerepostvalue',true))||(get_post_meta($post, 'selgerfaxvalue',true))||(get_post_meta($post, 'selgerbildevalue',true))){
