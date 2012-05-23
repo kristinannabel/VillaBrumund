@@ -3,7 +3,7 @@
 	Plugin Name: ApartmentViewer
 	Description: Used by millions! 
 	Version: 1.0
-	Depends: WP-SimpleViewer, Apartment Widget, Megler Widget, Selger Widget
+	Depends: Apartment Widget, Megler Widget, Selger Widget, Slideshow Gallery
 	Author: Ivan Le Hjelmeland, Mette Pernille Hellesvik, Kristin Annabel Folland
 	
 	Copyright 2012 Ivan Lé Hjelmeland (email : ivan.hjelmeland@gmail.com)  
@@ -60,4 +60,21 @@ if ( is_admin() ) {
 	}
 	
 	add_action("admin_init", "include_scripts");
+	
+function get_apartments($atts) {
+	extract(shortcode_atts(array('id' => '#'), $atts));
+	$pages = get_pages(array( 'child_of' => $id, 'sort_column' => 'post_title'));
+	$html = '';
+	foreach($pages as $page){
+		$ids = $page->ID;
+		$imageUrl = get_the_post_thumbnail($ids);
+		if(strlen($imageUrl))
+			$html .= "<a href='".get_page_link( $page->ID )."'>".$imageUrl."<br><b>".$page->post_title."</b>";
+		else
+			$html .= "<li><a href='".get_page_link( $page->ID )."'><b>".$page->post_title."</b></li>";
+	}
+		
+	return $html;
+}
+add_shortcode('menu', 'get_apartments');
 ?>
