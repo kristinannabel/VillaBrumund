@@ -1,4 +1,5 @@
 ﻿<?php
+
 add_action( 'add_meta_boxes', 'myplugin_add_custom_box' );
 // backwards compatible (before WP 3.0)
 // add_action( 'admin_init', 'myplugin_add_custom_box', 1 );
@@ -141,64 +142,68 @@ function myplugin_save_postdata( $post_id ) {
 	update_post_meta($post_id, 'selgerfaxvalue', $selgerfax);
   }
 }
+
 function apartmentContent($post){
+$options = get_option('plugin_options');
   if((get_post_meta($post, 'arealvalue',true))||(get_post_meta($post, 'prisvalue',true))||(get_post_meta($post, 'soveromvalue',true))||(get_post_meta($post, 'badvalue',true))){
-	echo "<h3 class='widget-title'>Leilighetsinformasjon</h3>";
+	echo "<h3 style='color:" . $options['tit_color'] . "; font-family:" . $options['tit_font'] . "; font-size:". $options['tit_size'] ."'; class='widget-title'>Leilighetsinformasjon</h3>";
   }
   if(get_post_meta($post, 'arealvalue',true)){
-	print_r( "<b>Areal: </b>".get_post_meta($post, 'arealvalue',true)." kvm<br />");
+	print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Areal: </b>".get_post_meta($post, 'arealvalue',true)." kvm<br />");
   }
   if(get_post_meta($post, 'prisvalue',true)){
-	print_r( "<b>Pris: </b>".get_post_meta($post, 'prisvalue',true)." kr<br />");
+	print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Pris: </b>".get_post_meta($post, 'prisvalue',true)." kr<br />");
   }
   if(get_post_meta($post, 'soveromvalue',true)){
-	print_r( "<b>Antall soverom: </b>".get_post_meta($post, 'soveromvalue',true)."<br />");
+	print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Antall soverom: </b>".get_post_meta($post, 'soveromvalue',true)."<br />");
   }
   if(get_post_meta($post, 'badvalue',true)){
-	print_r( "<b>Antall bad: </b>".get_post_meta($post, 'badvalue',true)."<br />");
+	print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Antall bad: </b>".get_post_meta($post, 'badvalue',true)."<br />");
   }
   if(get_post_meta($post, 'prospektvalue',true)){
-  print_r( '<b>Prospekt: </b><a href="'.get_post_meta($post, "prospektvalue",true).'">Vis</a><br />');
+  print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Prospekt: </b><a href='".get_post_meta($post, 'prospektvalue',true)."'>Vis</a><br />");
   }
   if(get_post_meta($post, 'urlenvalue',true)){
 	print_r( "<br><a href='http://".get_post_meta($post, 'urlenvalue',true)."'><img src='".network_site_url( '/' )."/wp-content/plugins/Apartmentviewer/images/knapp.jpg' alt='Legg inn bud'/></a>");
   }
 }
 function meglerContent($post){
+$options = get_option('plugin_options');
   if((get_post_meta($post, 'meglernavnvalue',true))||(get_post_meta($post, 'meglertlfvalue',true))||(get_post_meta($post, 'meglerepostvalue',true))||(get_post_meta($post, 'meglerfaxvalue',true))||(get_post_meta($post, 'meglerbildevalue',true))){
-	echo "<h3 class='widget-title'>Meglerinformasjon</h3>";
+	echo "<h3 style='color:" . $options['tit_color'] . "; font-family:" . $options['tit_font'] . "; font-size:". $options['tit_size'] ."'; class='widget-title'>Meglerinformasjon</h3>";
   }
   if(get_post_meta($post, 'meglernavnvalue',true)){
-  print_r( "<b>Meglers navn: </b>".get_post_meta($post, 'meglernavnvalue',true)."<br />");
+  print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Meglers navn: </b>".get_post_meta($post, 'meglernavnvalue',true)."<br />");
   }
   if(get_post_meta($post, 'meglertlfvalue',true)){
-  print_r( "<b>Meglers tlfnr: </b>".get_post_meta($post, 'meglertlfvalue',true)."<br />");
+  print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Meglers tlfnr: </b>".get_post_meta($post, 'meglertlfvalue',true)."<br />");
   }
   if(get_post_meta($post, 'meglerepostvalue',true)){
-  print_r( "<b>Meglers epost: </b>".get_post_meta($post, 'meglerepostvalue',true)."<br />");
+  print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Meglers epost: </b>".get_post_meta($post, 'meglerepostvalue',true)."<br />");
   }
   if(get_post_meta($post, 'meglerfaxvalue',true)){
-  print_r( "<b>Meglers fax: </b>".get_post_meta($post, 'meglerfaxvalue',true)."<br />");
+  print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Meglers fax: </b>".get_post_meta($post, 'meglerfaxvalue',true)."<br />");
   }
   if(get_post_meta($post, 'meglerbildevalue',true)){
-  print_r( '<b>Bilde av megler: </b><br><img src="'.get_post_meta($post, "meglerbildevalue",true).'" alt="Bilde av megler" width="100" height="100"/><br />');
+  print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Bilde av megler: </b><br><img src=".get_post_meta($post, 'meglerbildevalue',true)." alt='Bilde av megler' width='" . $options['pic_width'] . "' /><br />");
   }
 }
 function selgerContent($post){
+$options = get_option('plugin_options');
   if((get_post_meta($post, 'selgernavnvalue',true))||(get_post_meta($post, 'selgertlfvalue',true))||(get_post_meta($post, 'selgerepostvalue',true))||(get_post_meta($post, 'selgerfaxvalue',true))||(get_post_meta($post, 'selgerbildevalue',true))){
-	echo "<h3 class='widget-title'>Selgerinformasjon</h3>";
+	echo "<h3 style='color:" . $options['tit_color'] . "; font-family:" . $options['tit_font'] . "; font-size:". $options['tit_size'] ."'; class='widget-title'>Selgerinformasjon</h3>";
   }
   if(get_post_meta($post, 'selgernavnvalue',true)){
-	print_r( "<b>Selgers navn: </b>".get_post_meta($post, 'selgernavnvalue',true)."<br />");
+	print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Selgers navn: </b>".get_post_meta($post, 'selgernavnvalue',true)."<br />");
   }
   if(get_post_meta($post, 'selgertlfvalue',true)){
-	print_r( "<b>Selgers tlfnr: </b>".get_post_meta($post, 'selgertlfvalue',true)."<br />");
+	print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Selgers tlfnr: </b>".get_post_meta($post, 'selgertlfvalue',true)."<br />");
   }
   if(get_post_meta($post, 'selgerepostvalue',true)){
-	print_r( "<b>Selgers epost: </b>".get_post_meta($post, 'selgerepostvalue',true)."<br />");
+	print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Selgers epost: </b>".get_post_meta($post, 'selgerepostvalue',true)."<br />");
   }
   if(get_post_meta($post, 'selgerfaxvalue',true)){
-	print_r( "<b>Selgers fax: </b>".get_post_meta($post, 'selgerfaxvalue',true)."<br />");
+	print_r( "<b style='color:" . $options['tek_color'] . "; font-family:" . $options['tek_font'] . "';>Selgers fax: </b>".get_post_meta($post, 'selgerfaxvalue',true)."<br />");
   }
 }
 
